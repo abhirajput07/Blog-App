@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar";
 import { useLocation } from "react-router-dom";
 import { serverURL } from "../server";
 import Comments from "./Comments";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 export default function Blog() {
   const [blogData, setBlogData] = useState({});
   const location = useLocation();
@@ -20,7 +20,9 @@ export default function Blog() {
     <>
       <Navbar />
       <div className="w-[80%] mx-auto  flex items-center justify-center flex-col mt-10 text-center">
-        <div className="text-md font-bold text-blue-600">{blogData?.category}</div>
+        <div className="text-md font-bold text-blue-600">
+          {blogData?.category}
+        </div>
         <div className="text-4xl font-semibold p-2">{blogData?.title}</div>
         <div className="flex gap-3 items-center p-5 font-semibold">
           <img
@@ -37,7 +39,7 @@ export default function Blog() {
             className="rounded-lg object-cover"
           />
         </div>
-        <div className=" pt-5 text-start">{ReactHtmlParser(blogData?.description)}</div>
+        <div className=" pt-5 text-start">{parse(blogData?.description)}</div>
         <Comments blogId={blogData?._id} />
       </div>
     </>
