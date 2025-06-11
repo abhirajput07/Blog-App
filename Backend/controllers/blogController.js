@@ -8,7 +8,8 @@ import { title } from "process";
 
 export const blogController = {
   addBlog: async (req, res, next) => {
-
+    const imageFile = req.files?.blogImage?.[0];
+    const fileName = imageFile?.filename || "";
     const blogSchema = Joi.object({
       userId: Joi.string().required(),
       title: Joi.string().required(),
@@ -111,7 +112,7 @@ export const blogController = {
       if (category) query.category = category;
 
       const totalPosts = await blogModel.countDocuments(query);
-      console.log(totalPosts)
+      console.log(totalPosts);
       const totalPages = Math.ceil(totalPosts / perPage);
 
       if (page > totalPages) {
@@ -133,7 +134,7 @@ export const blogController = {
 
   getSingleBlog: async (req, res, next) => {
     const { blogId } = req.body;
-    console.log(blogId)
+    console.log(blogId);
     try {
       if (blogId) {
         const blog = await blogModel.findOne({ _id: blogId });

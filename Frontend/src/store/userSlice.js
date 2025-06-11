@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { serverURL } from "../server";
-import { getCookieData } from "../utils/helperFunction";
 import axios from "axios";
 
 // const STATUSES = Object.freeze({
