@@ -4,10 +4,18 @@ import Navbar from "../components/Navbar";
 import { useLocation } from "react-router-dom";
 import { serverURL } from "../server";
 import Comments from "./Comments";
-import ReactHtmlParser from "react-html-parser";
 export default function Blog() {
   const [blogData, setBlogData] = useState({});
   const location = useLocation();
+
+  function renderHTMLContent(htmlContent) {
+    return (
+      <div
+        className="prose max-w-none"
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
+    );
+  }
 
   useEffect(() => {
     if (location?.state?.data) {
@@ -39,7 +47,7 @@ export default function Blog() {
           />
         </div>
         <div className=" pt-5 text-start">
-          {ReactHtmlParser(blogData?.description)}
+          {renderHTMLContent(blogData?.description)}
         </div>
         <Comments blogId={blogData?._id} />
       </div>
