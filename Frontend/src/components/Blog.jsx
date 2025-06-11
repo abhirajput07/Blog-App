@@ -4,17 +4,16 @@ import Navbar from "../components/Navbar";
 import { useLocation } from "react-router-dom";
 import { serverURL } from "../server";
 import Comments from "./Comments";
-import parse from "html-react-parser";
+import ReactHtmlParser from "react-html-parser";
 export default function Blog() {
   const [blogData, setBlogData] = useState({});
   const location = useLocation();
 
   useEffect(() => {
     if (location?.state?.data) {
-      console.log(location?.state?.data);
       setBlogData(location?.state?.data);
     }
-  }, []);
+  }, [location?.state?.data]);
 
   return (
     <>
@@ -39,7 +38,9 @@ export default function Blog() {
             className="rounded-lg object-cover"
           />
         </div>
-        <div className=" pt-5 text-start">{parse(blogData?.description)}</div>
+        <div className=" pt-5 text-start">
+          {ReactHtmlParser(blogData?.description)}
+        </div>
         <Comments blogId={blogData?._id} />
       </div>
     </>

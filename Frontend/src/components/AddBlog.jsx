@@ -33,8 +33,6 @@ function AddBlog() {
     register,
     handleSubmit,
     setValue,
-    watch,
-    reset,
     formState: { errors },
   } = useForm();
 
@@ -56,7 +54,7 @@ function AddBlog() {
     }
   };
 
-  const cookie=getCookieData(document.cookie)
+  const cookie = getCookieData(document.cookie);
   const token = cookie?.authToken;
 
   const previewImage = (file) => {
@@ -130,7 +128,7 @@ function AddBlog() {
       toast.success(response.data?.message);
       setImagePreview(null);
       setContent("");
-      navigate("/")
+      navigate("/");
     } catch (error) {
       console.error("🚨 Axios Error:", error.response?.data || error.message);
       toast.error(error.response?.data?.message || "Something went wrong");

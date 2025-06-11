@@ -15,7 +15,6 @@ function Navbar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleLogoutUser = () => {
-    dispatch(fetchUser());
     setdropDownMenu(false);
     handleLogout();
     navigate("/");
@@ -32,8 +31,10 @@ function Navbar() {
   }, [cookieData]);
 
   useEffect(() => {
-    dispatch(fetchUser(cookieData?.userId));
-  }, [cookieData?.userId]);
+    if (cookieData?.userId) {
+      dispatch(fetchUser(cookieData?.userId));
+    }
+  }, [cookieData?.userId, dispatch]);
 
   // const userId = cookieData?.userId;
 
